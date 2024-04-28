@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ProEventos.API.Models;
+using Microsoft.EntityFrameworkCore;
+using ProEventos.API.Data;
+using ProEventos.Domain;
 
 namespace ProEventos.API.Controllers
 {
@@ -12,40 +13,25 @@ namespace ProEventos.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-        private IEnumerable<Evento> _evento = new Evento[]{
-                new Evento {
-                Id = 1,
-                Tema = "Angular 11 e .NET 5",
-                Local = "Belo Horizonte",
-                Lote = "1º Lote",
-                QtdPessoas = 250,
-                Data = DateTime.Now.AddDays(2).ToString(),
-                ImagemURL = "photo.png"
-            },
-                new Evento {
-                Id = 2,
-                Tema = "Angular 12 e .NET 6",
-                Local = "Salvador",
-                Lote = "2º Lote",
-                QtdPessoas = 350,
-                Data = DateTime.Now.AddDays(5).ToString(),
-                ImagemURL = "photo.jpeg"
-                }
-        };
+        private readonly DataContext _context;
 
-        public EventoController()
-        { }
+        public EventoController(DataContext context)
+        { 
+            _context = context;
+        }
 
         [HttpGet]
-        public async Task<IEnumerable<Evento>> GetEvento()
+        public async Task<IEnumerable<Evento>> GetEventos()
         {
-            return _evento;
+            var eventos = await _context.Eventos.AsNoTracking().ToListAsync();
+            return eventos;
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IEnumerable<Evento>> GetById(int id)
+        public async Task<Evento> GetById(int id)
         {
-            return _evento.Where(ev => ev.Id == id);
+            var evento = await _context.Eventos.FirstOrDefaultAsync(ev => ev.Id == id);
+            return evento;
         }
     }
 }

@@ -482,3 +482,10 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+back/src/ProEventos.API/ProEventos.db
+back/src/ProEventos.API/ProEventos.db-shm
+back/src/ProEventos.API/ProEventos.db-wal
+back/src/ProEventos.API/Data/Migrations/
+.config/dotnet-tools.json
+.vscode/launch.json
+.vscode/tasks.json
