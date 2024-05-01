@@ -46,7 +46,7 @@ namespace ProEventos.Application
                 if(evento == null)
                     return null;
                 
-                model.Id = evento.Id;
+                evento.Update(model);
 
                 _geralPersist.Update<Evento>(evento);
                 
