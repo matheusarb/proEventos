@@ -536,3 +536,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+back/src/ProEventos.Persistence/ProEventos.Persistence.csproj
+back/src/ProEventos.Persistence/Migrations/20240430011805_Initial.cs
+back/src/ProEventos.Persistence/Migrations/20240430011805_Initial.Designer.cs
+back/src/ProEventos.Persistence/Migrations/ProEventosContextModelSnapshot.cs
