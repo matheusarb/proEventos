@@ -92,5 +92,39 @@ namespace ProEventos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao criar o evento. Erro: {ex.Message}");
             }
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Put(int id, Evento model)
+        {
+            try
+            {
+                var evento = await _eventoService.UpdateEvento(id, model);
+                if(evento == null)
+                    return BadRequest("Evento não encontrado.");
+                
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar o evento. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var evento = await _eventoService.DeleteEvento(id);
+                if(!evento)
+                    return BadRequest("Não foi possível deletar o evento.");
+                
+                return Ok("Evento deletado");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao deletar o evento. Erro: {ex.Message}");
+            }
+        }
     }
 }
