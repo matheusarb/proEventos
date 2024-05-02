@@ -52,7 +52,8 @@ namespace ProEventos.Application
                 
                 if(await _geralPersist.SaveChangesAsync())
                 {
-                    return await _eventoPersist.GetEventoByIdAsync(model.Id, false);
+                    var eventoTest = await _eventoPersist.GetEventoByIdAsync(model.Id, false);
+                    return evento;
                 }
 
                 return null;
